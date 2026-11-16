@@ -1,13 +1,60 @@
 <!doctype html>
-<html lang="en">
+<html lang="pt-BR">
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>problema-do-cavalo</title>
+    <title>O Problema do Cavalo</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Russo+One&display=swap" rel="stylesheet">
   </head>
   <body>
-    <div id="root"></div>
+    <div id="background-root" style="position: fixed; top: 0; left: 0; z-index: -1; width: 100%; height: 100%;"></div>
+    <div id="intro">
+      <h1>O Problema do Cavalo</h1>        
+      <p>Visite todas as casas do tabuleiro sem repetir nenhuma!</p>
+      <p class="intro-desc">Utilizando apenas o movimento do cavalo no xadrez.</p>
+
+      <div id="campoNumeroInicio">
+        <label for="numeroInputInicio">Tamanho do tabuleiro (NxN):</label>
+        <input type="number" id="numeroInputInicio" min="5" max="12" value="5" placeholder="Ex: 8">
+      </div>
+
+      <button id="iniciar-btn">Iniciar</button>
+    </div>
+
+    <div id="game-container" class="hidden">     
+      <header>
+        <h1>O Problema do Cavalo</h1>
+        <div id="status-message">Clique em uma casa para começar!</div>  
+      </header>
+      
+      <div id="tabuleiro"></div>
+      
+      <div id="controls">
+        <div class="buttons-row">
+          <button id="restart-btn">Reiniciar Jogo</button>
+          <button id="criarTabuleiroBtn">Mudar tamanho</button> 
+          <button id="voltarInicioBtn">Voltar ao Início</button>
+        </div>
+        
+        <div id="campoNumero" style="display: none">
+          <label for="numeroInput">Novo tamanho (NxN):</label>
+          <input type="number" id="numeroInput" min="5" max="12" placeholder="Ex: 8">
+          <button id="pegarValorBtn">Confirmar</button>
+        </div>
+        
+        <div class="ajuda-container">
+          <span>Ajuda (mostrar próximos movimentos):</span>
+          <div class="toggle-container">
+            <input type="checkbox" id="toggle-switch" class="toggle-switch-checkbox">
+            <label for="toggle-switch" class="toggle-switch-label"></label>
+          </div>
+        </div>              
+      </div>
+    </div>
+
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>

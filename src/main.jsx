@@ -1,10 +1,10 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
+import Background from './assets/Background.jsx'
 import './index.css'
-import App from './App.jsx'
-
-createRoot(document.getElementById('root')).render(
+import './script.js'
+createRoot(document.getElementById('background-root')).render(
   <StrictMode>
-    <App />
+    <Background />
   </StrictMode>,
 )
