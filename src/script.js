@@ -33,7 +33,7 @@ function initGame() {
         let valor = 5;
         if (nInputInicio && nInputInicio.value) {
             const parsed = parseInt(nInputInicio.value, 10);
-            if (!isNaN(parsed) && parsed >= 3) {
+            if (!isNaN(parsed) && parsed >= 5) {
                 valor = parsed;
             }
         }
@@ -49,6 +49,7 @@ function initGame() {
     function mostrar_jogo() {
         if (telaInicial) telaInicial.classList.add('hidden');
         if (game) game.classList.remove('hidden');
+        ajustaTamanhoTabuleiro();
     }
 
     function voltarAoInicio() {
@@ -101,6 +102,38 @@ function initGame() {
         cria_tabuleiro(tamanho_tabuleiro_atual);
     }
 
+    // Ajuste responsivo de tamanho do tabuleiro e células
+    function ajustaTamanhoTabuleiro() {
+        if (!tabuleiro || tamanho_tabuleiro_atual <= 0) return;
+
+        const n = tamanho_tabuleiro_atual;
+        const isMobile = window.innerWidth <= 600;
+
+        // Espaço horizontal livre (descontando paddings da tela e bordas)
+        const paddingTotal = isMobile ? 26 : 60;
+        const maxAvailableWidth = Math.max(window.innerWidth - paddingTotal, 160);
+
+        // Espaço vertical livre (deixando área visível para título e botões de controle)
+        const maxAvailableHeight = Math.max(window.innerHeight * 0.55, 160);
+
+        // O tabuleiro deve caber tanto na largura quanto na altura
+        const maxBoardDimension = Math.min(maxAvailableWidth, maxAvailableHeight, 500);
+
+        let cellSize = Math.floor(maxBoardDimension / n);
+        // Limita o tamanho máximo em desktops para não ficar desproporcional
+        if (cellSize > 56) cellSize = 56;
+        if (cellSize < 16) cellSize = 16;
+
+        const boardPx = cellSize * n;
+
+        tabuleiro.style.setProperty('--cell-size', `${cellSize}px`);
+        tabuleiro.style.setProperty('--grid-n', n);
+        tabuleiro.style.gridTemplateColumns = `repeat(${n}, ${cellSize}px)`;
+        tabuleiro.style.gridTemplateRows = `repeat(${n}, ${cellSize}px)`;
+        tabuleiro.style.width = `${boardPx}px`;
+        tabuleiro.style.height = `${boardPx}px`;
+    }
+
     // Criação do Tabuleiro
     function cria_tabuleiro(n) {
         if (!tabuleiro) return;
@@ -109,6 +142,8 @@ function initGame() {
         if (n > 12) n = 12;
 
         tamanho_tabuleiro_atual = n;
+        ajustaTamanhoTabuleiro();
+
         casa = [];
         linha_atual = -1;
         coluna_atual = -1;
@@ -117,10 +152,6 @@ function initGame() {
 
         tabuleiro.innerHTML = '';
         tabuleiro.style.display = 'grid';
-        tabuleiro.style.gridTemplateColumns = `repeat(${n}, 50px)`;
-        tabuleiro.style.gridTemplateRows = `repeat(${n}, 50px)`;
-        tabuleiro.style.width = `${n * 50}px`;
-        tabuleiro.style.height = `${n * 50}px`;
 
         for (let row = 0; row < n; row++) {
             casa[row] = [];
@@ -136,6 +167,9 @@ function initGame() {
             }
         }
     }
+
+    // Redimensiona quando a janela/tela muda de tamanho ou orientação
+    window.addEventListener('resize', ajustaTamanhoTabuleiro);
 
     // Interação com Casas
     function clicaCasa(event) {
