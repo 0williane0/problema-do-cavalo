@@ -1,4 +1,4 @@
-# ♞ O Passeio do Cavalo (Knight's Tour)
+# ♞ O Problema do Cavalo (Passeio do Cavalo)
 
 Uma implementação interativa do clássico problema matemático e de lógica do xadrez, desenvolvido com **HTML**, **CSS** e **JavaScript**.
 
@@ -6,7 +6,7 @@ Uma implementação interativa do clássico problema matemático e de lógica do
 
 Você pode testar e jogar diretamente pelo navegador através do GitHub Pages:
 
-**[Jogar O Passeio do Cavalo](https://0williane0.github.io/problema-do-cavalo/)**
+**[Jogar O Problema do Cavalo](https://0williane0.github.io/problema-do-cavalo/)**
 
 ## 📖 Sobre o Jogo
 
